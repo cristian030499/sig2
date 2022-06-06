@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8" />
+
+<head>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+    <style>
+        #map {
+            width: 100%;
+            height: 600px;
+            box-shadow: 5px 5px 5px #888;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="map"></div>
+    <script>
+
+        var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a>'
+                + 'contributors',
+            maxZoom: 18
+        });
+
+
+
+        var map = L.map('map', {
+            center: [1.6020994639498083, -75.60821631679515],
+            zoom: 13,
+            layers: osm,
+            scrollWheelZoom: true,
+        });
+
+        L.control.scale().addTo(map);
+
+
+        //marcador amazonia
+        var marker = L.marker([1.620362756965864, -75.60424933922896], {
+            draggable: true,
+            title: 'pincha aquí'
+        }).addTo(map)
+            .bindPopup('Universidad de la amazonia')
+            .openPopup();
+
+
+        //Añadir un icono de marcador amazonia
+        var myIcon = L.icon({
+            iconUrl: 'https://sibcolombia.net/wp-content/uploads/2016/05/Logo-u-amazonia.png',
+            iconSize: [30, 30],
+            popupAnchor: [-1, -10]
+        });
+
+        var marker2 = L.marker([1.620362756965864, -75.60424933922896], { icon: myIcon })
+            .addTo(map)
+            .bindPopup("Localización de uniamazonia");
+
+        //marcador alcaldia
+        var marker1 = L.marker([1.6150855670578057, -75.6138598458438], {
+            draggable: true,
+            title: 'pincha aquí'
+        }).addTo(map)
+            .bindPopup('Alcaldia Florencia')
+            .openPopup();
+
+        //Añadir un círculo alcaldia
+        var circle = L.circle([1.6150855670578057, -75.6138598458438], 500, {
+            color: 'red',
+            fillColor: '#f03',
+            fillOpacity: 0
+        }).addTo(map);
+        //circle.bindPopup("Centro de la ciudad");
+
+        //marcador plaza santander
+        var marker2 = L.marker([1.6150018239994997, -75.61330329311741], {
+            draggable: true,
+            title: 'pincha aquí'
+        }).addTo(map)
+            .bindPopup('Plaza santander')
+            .openPopup();
+
+
+        //Añadir un polígono plaza santander
+        var polygon = L.polygon([
+            [1.615182612037581, -75.61373818344147],
+            [1.6154232446337318, -75.61301063426531],
+            [1.6146916464986287, -75.61278440139066],
+            [1.614488549834599, -75.61352267940138]
+        ]).addTo(map)
+            .bindPopup('Parque santander');
+
+
+        //Añadir una línea casa a udla
+        var pointA = new L.LatLng(1.6257958391036322, -75.59666239366881);
+        var pointB = new L.LatLng(1.620362756965864, -75.60424933922896);
+        var latlngs = [pointA, pointB];
+        var polyline = L.polyline(
+            latlngs, { color: 'yellow' }
+        )
+            .addTo(map)
+            .bindPopup('casa a udla');
+
+            // publicar en github  
+            //  https://www.youtube.com/watch?v=EWm7AnFVSAU
+
+    </script>
+</body>
+
+</html>
